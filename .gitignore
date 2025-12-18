@@ -1,5 +1,8 @@
 //gitignore example from course WEBII 2024-2025 @Erasmushogeschool
 
+#credentials
+credentials.js
+
 # Logs
 logs
 *.log
