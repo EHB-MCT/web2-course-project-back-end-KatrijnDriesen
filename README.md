@@ -20,3 +20,6 @@ IF you use a source as the base/start for a file, then first place the source in
 **ALWAYS** use concise BUT CLEAR commit messages!
 
 Have a look at the example repository: https://github.com/EHB-MCT/example-readme
+
+- info on static files in Express https://expressjs.com/en/starter/static-files.html#serving-static-files-in-express
+app.use('/static', express.static('public'))

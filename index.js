@@ -7,6 +7,8 @@ import cors from "cors";
 
 app.use(bodyParser.json());
 app.use(cors());
+app.use("/images", express.static("images"));
+
 const port = process.env.PORT || 3000;
 
 console.log("joehoe");
