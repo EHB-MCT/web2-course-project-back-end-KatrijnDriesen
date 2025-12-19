@@ -13,26 +13,32 @@ const port = process.env.PORT || 3000;
 
 console.log("joehoe");
 
-let dbCarrouselWatGroeitEr;
-let dbActiviteiten;
+const uri = `mongodb+srv://admin_katrijn:${credentials.password}@wildewei.3etdgyv.mongodb.net/?appName=Wildewei`;
+const nameDatabase = "wildewei_databank";
+const collections = {
+	nameCollectionWatgroeiter: "watgroeiter",
+	nameCollectionActiviteiten: "activiteiten",
+};
+const databases = {
+	dbCarrouselWatGroeitEr: null,
+	dbActiviteiten: null,
+};
 
 async function run() {
-	const uri = `mongodb+srv://admin_katrijn:${credentials.password}@wildewei.3etdgyv.mongodb.net/?appName=Wildewei`;
 	const client = new MongoClient(uri);
-
-	const database = client.db("wildewei_databank");
-	dbCarrouselWatGroeitEr = database.collection("watgroeiter");
-	dbActiviteiten = database.collection("activiteiten");
+	const database = client.db(nameDatabase);
+	databases.dbCarrouselWatGroeitEr = database.collection(collections.nameCollectionWatgroeiter);
+	databases.dbActiviteiten = database.collection(collections.nameCollectionActiviteiten);
 }
 
 app.get("/watgroeiter", async (req, res) => {
-	const watgroeiterArray = await dbCarrouselWatGroeitEr.find().toArray();
+	const watgroeiterArray = await databases.dbCarrouselWatGroeitEr.find().toArray();
 	console.log(watgroeiterArray);
 	res.send(watgroeiterArray);
 });
 
 app.get("/activiteiten", async (req, res) => {
-	let activiteiten = dbActiviteiten.find().sort({ startDate: 1 });
+	let activiteiten = databases.dbActiviteiten.find().sort({ startDate: 1 });
 
 	if (req.query.limit) {
 		const limit = Number(req.query.limit);
