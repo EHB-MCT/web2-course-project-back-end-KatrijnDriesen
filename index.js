@@ -2,10 +2,8 @@ import credentials from "./credentials.js";
 import { MongoClient } from "mongodb";
 import express from "express";
 const app = express();
-import bodyParser from "body-parser";
 import cors from "cors";
 
-app.use(bodyParser.json());
 app.use(cors());
 app.use("/images", express.static("images"));
 
