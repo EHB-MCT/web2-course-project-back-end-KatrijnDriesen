@@ -5,6 +5,7 @@ const app = express();
 import cors from "cors";
 
 app.use(cors());
+app.use(express.json());
 app.use("/images", express.static("images"));
 
 const port = process.env.PORT || 3000;
@@ -16,10 +17,12 @@ const nameDatabase = "wildewei_databank";
 const collections = {
 	nameCollectionWatgroeiter: "watgroeiter",
 	nameCollectionActiviteiten: "activiteiten",
+	nameCollectionInschrijvingen: "inschrijvingen",
 };
 const databases = {
 	dbCarrouselWatGroeitEr: null,
 	dbActiviteiten: null,
+	dbInschrijvingen: null,
 };
 
 async function run() {
@@ -27,6 +30,7 @@ async function run() {
 	const database = client.db(nameDatabase);
 	databases.dbCarrouselWatGroeitEr = database.collection(collections.nameCollectionWatgroeiter);
 	databases.dbActiviteiten = database.collection(collections.nameCollectionActiviteiten);
+	databases.dbInschrijvingen = database.collection(collections.nameCollectionInschrijvingen);
 }
 
 app.get("/watgroeiter", async (req, res) => {
@@ -45,6 +49,16 @@ app.get("/activiteiten", async (req, res) => {
 	let activiteitenArray = await activiteiten.toArray();
 	console.log(activiteitenArray);
 	res.send(activiteitenArray);
+});
+
+app.post("/inschrijving", async (req, res) => {
+	let inschrijving = req.body;
+	if (!inschrijving.email || !inschrijving.numberOfPeople) {
+		res.status(400).json({ message: "Vul aub een emailadres en het aantal personen in" });
+	} else {
+		await databases.dbInschrijvingen.insertOne(inschrijving);
+		res.send({ message: "Dank je voor je inschrijving, mag je een mail van ons verwachten voor de betaling." });
+	}
 });
 
 app.listen(port, () => {
