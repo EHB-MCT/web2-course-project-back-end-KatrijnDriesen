@@ -3,6 +3,7 @@ import { MongoClient } from "mongodb";
 import express from "express";
 const app = express();
 import cors from "cors";
+import bcrypt from "bcrypt";
 
 app.use(cors());
 app.use(express.json());
@@ -18,11 +19,13 @@ const collections = {
 	nameCollectionWatgroeiter: "watgroeiter",
 	nameCollectionActiviteiten: "activiteiten",
 	nameCollectionInschrijvingen: "inschrijvingen",
+	nameCollectionAdmin: "admin",
 };
 const databases = {
 	dbCarrouselWatGroeitEr: null,
 	dbActiviteiten: null,
 	dbInschrijvingen: null,
+	dbAdmin: null,
 };
 
 async function run() {
@@ -31,6 +34,7 @@ async function run() {
 	databases.dbCarrouselWatGroeitEr = database.collection(collections.nameCollectionWatgroeiter);
 	databases.dbActiviteiten = database.collection(collections.nameCollectionActiviteiten);
 	databases.dbInschrijvingen = database.collection(collections.nameCollectionInschrijvingen);
+	databases.dbAdmin = database.collection(collections.nameCollectionAdmin);
 }
 
 app.get("/watgroeiter", async (req, res) => {
@@ -58,6 +62,23 @@ app.post("/inschrijving", async (req, res) => {
 	} else {
 		await databases.dbInschrijvingen.insertOne(inschrijving);
 		res.send({ message: "Dank je voor je inschrijving, mag je een mail van ons verwachten voor de betaling." });
+	}
+});
+
+app.post("/login", async (req, res) => {
+	console.log(req.body);
+	if (!req.body.password || !req.body.username) {
+		return res.status(401).json({ message: "Logingegevens zijn niet correct" });
+	}
+	const loggedUser = await databases.dbAdmin.findOne({ username: req.body.username });
+	if (!loggedUser) {
+		return res.status(401).json({ message: "Logingegevens zijn niet correct" });
+	}
+	const checkPassword = await bcrypt.compare(req.body.password, loggedUser.password);
+	if (!checkPassword) {
+		res.status(401).json({ message: "Logingegevens zijn niet correct" });
+	} else {
+		res.send({ message: `Je bent ingelogd!`, username: loggedUser.username });
 	}
 });
 
