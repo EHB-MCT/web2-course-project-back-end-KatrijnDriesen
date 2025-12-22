@@ -1,5 +1,6 @@
 import credentials from "./credentials.js";
 import { MongoClient } from "mongodb";
+import { ObjectId } from "mongodb";
 import express from "express";
 const app = express();
 import cors from "cors";
@@ -79,6 +80,20 @@ app.post("/login", async (req, res) => {
 		res.status(401).json({ message: "Logingegevens zijn niet correct" });
 	} else {
 		res.send({ message: `Je bent ingelogd!`, username: loggedUser.username });
+	}
+});
+
+app.patch("/activiteiten/:id", async (req, res) => {
+	//console.log(_id);
+	const idUitReq = req.params.id;
+	const _iduitReqToMongoDbObject = new ObjectId(idUitReq);
+	const newData = req.body;
+
+	if (await databases.dbActiviteiten.findOne({ _id: _iduitReqToMongoDbObject })) {
+		await databases.dbActiviteiten.updateOne({ _id: _iduitReqToMongoDbObject }, { $set: newData });
+		res.send({ message: `Activiteit werd gewijzigd` });
+	} else {
+		res.status(404).json({ message: "Activiteit werd niet gevonden" });
 	}
 });
 
