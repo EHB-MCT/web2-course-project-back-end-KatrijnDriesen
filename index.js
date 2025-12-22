@@ -97,6 +97,17 @@ app.patch("/activiteiten/:id", async (req, res) => {
 	}
 });
 
+app.post("/activiteiten", async (req, res) => {
+	console.log(req.body);
+
+	const newData = req.body;
+
+	await databases.dbActiviteiten.insertOne(newData);
+	res.send({ message: `Activiteit werd toegevoegd` });
+	/* Vang error server op!
+	} */
+});
+
 app.delete("/activiteiten/:id", async (req, res) => {
 	const idUitReq = req.params.id;
 	const _iduitReqToMongoDbObject = new ObjectId(idUitReq);
