@@ -97,6 +97,18 @@ app.patch("/activiteiten/:id", async (req, res) => {
 	}
 });
 
+app.delete("/activiteiten/:id", async (req, res) => {
+	const idUitReq = req.params.id;
+	const _iduitReqToMongoDbObject = new ObjectId(idUitReq);
+
+	if (await databases.dbActiviteiten.findOne({ _id: _iduitReqToMongoDbObject })) {
+		await databases.dbActiviteiten.deleteOne({ _id: _iduitReqToMongoDbObject });
+		res.send({ message: `Activiteit werd verwijderd` });
+	} else {
+		res.status(404).json({ message: "Activiteit werd niet gevonden" });
+	}
+});
+
 app.listen(port, () => {
 	console.log(`Example app listening on port ${port}`);
 	run();
