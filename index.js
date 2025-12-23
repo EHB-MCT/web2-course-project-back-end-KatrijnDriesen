@@ -58,11 +58,20 @@ app.get("/activiteiten", async (req, res) => {
 
 app.post("/inschrijving", async (req, res) => {
 	let inschrijving = req.body;
-	if (!inschrijving.email || !inschrijving.numberOfPeople) {
-		res.status(400).json({ message: "Vul aub een emailadres en het aantal personen in" });
+	const activityIdUitReqToMongoDbObject = new ObjectId(inschrijving.idActiviteit);
+
+	if (!inschrijving.idActiviteit || !inschrijving.firstName || !inschrijving.lastName || !inschrijving.email || !inschrijving.numberOfPeople) {
+		res.status(400).json({ message: "Vul alle gegevens aan aub" });
 	} else {
-		await databases.dbInschrijvingen.insertOne(inschrijving);
-		res.send({ message: "Dank je voor je inschrijving, mag je een mail van ons verwachten voor de betaling." });
+		const inschrijvingId = await databases.dbInschrijvingen.insertOne(inschrijving);
+		console.log(inschrijvingId);
+		const updateActiviteit = { registrations: { registeredParticipants: inschrijving.numberOfPeople, inschrijvingId: inschrijvingId.insertedId } };
+		if (await databases.dbActiviteiten.findOne({ _id: activityIdUitReqToMongoDbObject })) {
+			await databases.dbActiviteiten.updateOne({ _id: activityIdUitReqToMongoDbObject }, { $push: updateActiviteit });
+			res.send({ message: "Dank je voor je inschrijving, mag je een mail van ons verwachten voor de betaling." });
+		} else {
+			res.status(404).json({ message: "Activiteit werd niet gevonden" });
+		}
 	}
 });
 
