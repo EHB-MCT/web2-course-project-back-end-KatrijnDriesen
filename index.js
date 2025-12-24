@@ -56,7 +56,13 @@ app.get("/activiteiten", async (req, res) => {
 	res.send(activiteitenArray);
 });
 
-app.post("/inschrijving", async (req, res) => {
+app.get("/inschrijvingen", async (req, res) => {
+	let inschrijvingen = await databases.dbInschrijvingen.find().toArray();
+	console.log(inschrijvingen);
+	res.send(inschrijvingen);
+});
+
+app.post("/inschrijvingen", async (req, res) => {
 	let inschrijving = req.body;
 	const activityIdUitReqToMongoDbObject = new ObjectId(inschrijving.idActiviteit);
 
