@@ -56,9 +56,10 @@ app.get("/activiteiten", async (req, res) => {
 	res.send(activiteitenArray);
 });
 
-app.get("/inschrijvingen", async (req, res) => {
-	let inschrijvingen = await databases.dbInschrijvingen.find().toArray();
-	console.log(inschrijvingen);
+app.get("/inschrijvingen/:idActiviteit", async (req, res) => {
+	console.log(req.params.idActiviteit);
+	const idActiviteit = req.params.idActiviteit;
+	const inschrijvingen = await databases.dbInschrijvingen.find({ idActiviteit: idActiviteit }).toArray();
 	res.send(inschrijvingen);
 });
 
