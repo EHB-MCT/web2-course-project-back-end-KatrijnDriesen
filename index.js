@@ -1,7 +1,7 @@
 //example code was used for static files in Express https://expressjs.com/en/starter/static-files.html#serving-static-files-in-express
 //app.use('/static', express.static('public'))
 
-//exaple code was used to create a Mongo ObjectId
+//example code was used to create a Mongo ObjectId
 //https://www.baeldung.com/mongo-generate-unique-objectid
 
 import credentials from "./credentials.js";
@@ -45,100 +45,120 @@ async function run() {
 }
 
 app.get("/watgroeiter", async (req, res) => {
-	const watgroeiterArray = await databases.dbCarrouselWatGroeitEr.find().toArray();
-	console.log(watgroeiterArray);
-	res.send(watgroeiterArray);
+	try {
+		const watgroeiterArray = await databases.dbCarrouselWatGroeitEr.find().toArray();
+		console.log(watgroeiterArray);
+		res.send(watgroeiterArray);
+	} catch (error) {
+		res.status(500).json({ message: "Oeps, er ging iets mis" });
+	}
 });
 
 app.get("/activiteiten", async (req, res) => {
-	let activiteiten = databases.dbActiviteiten.find().sort({ startDate: 1 });
+	try {
+		let activiteiten = databases.dbActiviteiten.find().sort({ startDate: 1 });
 
-	if (req.query.limit) {
-		const limit = Number(req.query.limit);
-		activiteiten = activiteiten.limit(limit);
+		if (req.query.limit) {
+			const limit = Number(req.query.limit);
+			activiteiten = activiteiten.limit(limit);
+		}
+		let activiteitenArray = await activiteiten.toArray();
+		//console.log(activiteitenArray);
+		res.send(activiteitenArray);
+	} catch (error) {
+		res.status(500).json({ message: "Oeps, er ging iets mis" });
 	}
-	let activiteitenArray = await activiteiten.toArray();
-	console.log(activiteitenArray);
-	res.send(activiteitenArray);
 });
 
 app.get("/inschrijvingen/:idActiviteit", async (req, res) => {
-	console.log(req.params.idActiviteit);
-	const idActiviteit = req.params.idActiviteit;
-	const inschrijvingen = await databases.dbInschrijvingen.find({ idActiviteit: idActiviteit }).toArray();
-	res.send(inschrijvingen);
+	try {
+		console.log(req.params.idActiviteit);
+		const idActiviteit = req.params.idActiviteit;
+		const inschrijvingen = await databases.dbInschrijvingen.find({ idActiviteit: idActiviteit }).toArray();
+		res.send(inschrijvingen);
+	} catch (error) {
+		res.status(500).json({ message: "Oeps, er ging iets mis" });
+	}
 });
 
 app.post("/inschrijvingen", async (req, res) => {
-	let inschrijving = req.body;
-	const activityIdUitReqToMongoDbObject = new ObjectId(inschrijving.idActiviteit);
-
-	if (!inschrijving.idActiviteit || !inschrijving.firstName || !inschrijving.lastName || !inschrijving.email || !inschrijving.numberOfPeople) {
-		res.status(400).json({ message: "Vul alle gegevens aan aub" });
-	} else {
-		const inschrijvingId = await databases.dbInschrijvingen.insertOne(inschrijving);
-		console.log(inschrijvingId);
-		const updateActiviteit = { registrations: { registeredParticipants: inschrijving.numberOfPeople, inschrijvingId: inschrijvingId.insertedId } };
-		if (await databases.dbActiviteiten.findOne({ _id: activityIdUitReqToMongoDbObject })) {
-			await databases.dbActiviteiten.updateOne({ _id: activityIdUitReqToMongoDbObject }, { $push: updateActiviteit });
-			res.send({ message: "Dank je voor je inschrijving, mag je een mail van ons verwachten voor de betaling." });
-		} else {
+	try {
+		let inschrijving = req.body;
+		if (!inschrijving.idActiviteit || !inschrijving.firstName || !inschrijving.lastName || !inschrijving.email || !inschrijving.numberOfPeople) {
+			res.status(400).json({ message: "Vul alle gegevens aan aub" });
+		}
+		const activityIdUitReqToMongoDbObject = new ObjectId(inschrijving.idActiviteit);
+		if (!(await databases.dbActiviteiten.findOne({ _id: activityIdUitReqToMongoDbObject }))) {
 			res.status(404).json({ message: "Activiteit werd niet gevonden" });
 		}
+		const inschrijvingId = await databases.dbInschrijvingen.insertOne(inschrijving);
+		//console.log(inschrijvingId);
+		const updateActiviteit = { registrations: { registeredParticipants: inschrijving.numberOfPeople, inschrijvingId: inschrijvingId.insertedId } };
+		await databases.dbActiviteiten.updateOne({ _id: activityIdUitReqToMongoDbObject }, { $push: updateActiviteit });
+		res.send({ message: "Dank je voor je inschrijving, mag je een mail van ons verwachten voor de betaling." });
+	} catch (error) {
+		res.status(500).json({ message: "Oeps, er ging iets mis" });
 	}
 });
 
 app.post("/login", async (req, res) => {
-	console.log(req.body);
-	if (!req.body.password || !req.body.username) {
-		return res.status(401).json({ message: "Logingegevens zijn niet correct" });
-	}
-	const loggedUser = await databases.dbAdmin.findOne({ username: req.body.username });
-	if (!loggedUser) {
-		return res.status(401).json({ message: "Logingegevens zijn niet correct" });
-	}
-	const checkPassword = await bcrypt.compare(req.body.password, loggedUser.password);
-	if (!checkPassword) {
-		res.status(401).json({ message: "Logingegevens zijn niet correct" });
-	} else {
+	try {
+		console.log(req.body);
+		if (!req.body.password || !req.body.username) {
+			res.status(401).json({ message: "Logingegevens zijn niet correct" });
+		}
+		const loggedUser = await databases.dbAdmin.findOne({ username: req.body.username });
+		if (!loggedUser) {
+			res.status(401).json({ message: "Logingegevens zijn niet correct" });
+		}
+		if (!(await bcrypt.compare(req.body.password, loggedUser.password))) {
+			res.status(401).json({ message: "Logingegevens zijn niet correct" });
+		}
 		res.send({ message: `Je bent ingelogd!`, username: loggedUser.username });
+	} catch (error) {
+		res.status(500).json({ message: "Oeps, er ging iets mis" });
 	}
 });
 
 app.patch("/activiteiten/:id", async (req, res) => {
-	//console.log(_id);
-	const idUitReq = req.params.id;
-	const _iduitReqToMongoDbObject = new ObjectId(idUitReq);
-	const newData = req.body;
-
-	if (await databases.dbActiviteiten.findOne({ _id: _iduitReqToMongoDbObject })) {
+	try {
+		//console.log(_id);
+		const idUitReq = req.params.id;
+		const _iduitReqToMongoDbObject = new ObjectId(idUitReq);
+		const newData = req.body;
+		if (!(await databases.dbActiviteiten.findOne({ _id: _iduitReqToMongoDbObject }))) {
+			res.status(404).json({ message: "Activiteit werd niet gevonden" });
+		}
 		await databases.dbActiviteiten.updateOne({ _id: _iduitReqToMongoDbObject }, { $set: newData });
 		res.send({ message: `Activiteit werd gewijzigd` });
-	} else {
-		res.status(404).json({ message: "Activiteit werd niet gevonden" });
+	} catch (error) {
+		rern res.status(500).json({ message: "Oeps, er ging iets mis" });
 	}
 });
 
 app.post("/activiteiten", async (req, res) => {
-	console.log(req.body);
-
-	const newData = req.body;
-
-	await databases.dbActiviteiten.insertOne(newData);
-	res.send({ message: `Activiteit werd toegevoegd` });
-	/* Vang error server op!
-	} */
+	try {
+		//console.log(req.body);
+		const newData = req.body;
+		await databases.dbActiviteiten.insertOne(newData);
+		res.send({ message: `Activiteit werd toegevoegd` });
+	} catch (error) {
+		res.status(500).json({ message: "Oeps, er ging iets mis" });
+	}
 });
 
 app.delete("/activiteiten/:id", async (req, res) => {
-	const idUitReq = req.params.id;
-	const _iduitReqToMongoDbObject = new ObjectId(idUitReq);
+	try {
+		const idUitReq = req.params.id;
+		const _iduitReqToMongoDbObject = new ObjectId(idUitReq);
 
-	if (await databases.dbActiviteiten.findOne({ _id: _iduitReqToMongoDbObject })) {
+		if (!(await databases.dbActiviteiten.findOne({ _id: _iduitReqToMongoDbObject }))) {
+			res.status(404).json({ message: "Activiteit werd niet gevonden" });
+		}
 		await databases.dbActiviteiten.deleteOne({ _id: _iduitReqToMongoDbObject });
 		res.send({ message: `Activiteit werd verwijderd` });
-	} else {
-		res.status(404).json({ message: "Activiteit werd niet gevonden" });
+	} catch (error) {
+		res.status(500).json({ message: "Oeps, er ging iets mis" });
 	}
 });
 
