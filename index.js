@@ -132,7 +132,7 @@ app.patch("/activiteiten/:id", async (req, res) => {
 		await databases.dbActiviteiten.updateOne({ _id: _iduitReqToMongoDbObject }, { $set: newData });
 		res.send({ message: `Activiteit werd gewijzigd` });
 	} catch (error) {
-		rern res.status(500).json({ message: "Oeps, er ging iets mis" });
+		res.status(500).json({ message: "Oeps, er ging iets mis" });
 	}
 });
 
