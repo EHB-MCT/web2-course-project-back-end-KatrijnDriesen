@@ -27,12 +27,14 @@ const collections = {
 	nameCollectionActiviteiten: "activiteiten",
 	nameCollectionInschrijvingen: "inschrijvingen",
 	nameCollectionAdmin: "admin",
+	nameCollectionImgs: "imgs",
 };
 const databases = {
 	dbCarrouselWatGroeitEr: null,
 	dbActiviteiten: null,
 	dbInschrijvingen: null,
 	dbAdmin: null,
+	dbImgs: null,
 };
 
 async function run() {
@@ -42,6 +44,7 @@ async function run() {
 	databases.dbActiviteiten = database.collection(collections.nameCollectionActiviteiten);
 	databases.dbInschrijvingen = database.collection(collections.nameCollectionInschrijvingen);
 	databases.dbAdmin = database.collection(collections.nameCollectionAdmin);
+	databases.dbImgs = database.collection(collections.nameCollectionImgs);
 }
 
 app.get("/watgroeiter", async (req, res) => {
@@ -56,7 +59,7 @@ app.get("/watgroeiter", async (req, res) => {
 
 app.get("/activiteiten", async (req, res) => {
 	try {
-		let activiteiten = databases.dbActiviteiten.find().sort({ startDate: 1 });
+		let activiteiten = await databases.dbActiviteiten.find().sort({ startDate: 1 });
 
 		if (req.query.limit) {
 			const limit = Number(req.query.limit);
@@ -76,6 +79,16 @@ app.get("/inschrijvingen/:idActiviteit", async (req, res) => {
 		const idActiviteit = req.params.idActiviteit;
 		const inschrijvingen = await databases.dbInschrijvingen.find({ idActiviteit: idActiviteit }).toArray();
 		res.send(inschrijvingen);
+	} catch (error) {
+		res.status(500).json({ message: "Oeps, er ging iets mis" });
+	}
+});
+
+app.get("/afbeeldingen", async (req, res) => {
+	try {
+		let afbeeldingenArray = await databases.dbImgs.find().toArray();
+		//console.log(afbeeldingenArray);
+		res.send(afbeeldingenArray);
 	} catch (error) {
 		res.status(500).json({ message: "Oeps, er ging iets mis" });
 	}
