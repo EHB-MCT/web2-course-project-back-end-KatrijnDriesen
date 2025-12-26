@@ -1,3 +1,9 @@
+//example code was used for static files in Express https://expressjs.com/en/starter/static-files.html#serving-static-files-in-express
+//app.use('/static', express.static('public'))
+
+//exaple code was used to create a Mongo ObjectId
+//https://www.baeldung.com/mongo-generate-unique-objectid
+
 import credentials from "./credentials.js";
 import { MongoClient } from "mongodb";
 import { ObjectId } from "mongodb";
