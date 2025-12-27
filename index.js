@@ -4,13 +4,13 @@
 //example code was used to create a Mongo ObjectId
 //https://www.baeldung.com/mongo-generate-unique-objectid
 
-import credentials from "./credentials.js";
 import { MongoClient } from "mongodb";
 import { ObjectId } from "mongodb";
 import express from "express";
 const app = express();
 import cors from "cors";
 import bcrypt from "bcrypt";
+import "dotenv/config";
 
 app.use(cors());
 app.use(express.json());
@@ -19,8 +19,7 @@ app.use("/images", express.static("images"));
 const port = process.env.PORT || 3000;
 
 console.log("joehoe");
-
-const uri = `mongodb+srv://admin_katrijn:${credentials.password}@wildewei.3etdgyv.mongodb.net/?appName=Wildewei`;
+const uri = process.env.MONGODB_URI;
 const nameDatabase = "wildewei_databank";
 const collections = {
 	nameCollectionWatgroeiter: "watgroeiter",

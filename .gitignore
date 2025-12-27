@@ -2,6 +2,7 @@
 
 #credentials
 credentials.js
+.env
 
 # Logs
 logs
