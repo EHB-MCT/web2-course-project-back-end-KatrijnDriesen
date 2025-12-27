@@ -52,7 +52,7 @@ app.get("/watgroeiter", async (req, res) => {
 		console.log(watgroeiterArray);
 		res.send(watgroeiterArray);
 	} catch (error) {
-		console.error(error);
+		console.log(error);
 		res.status(500).json({ message: "Oeps, er ging iets mis" });
 	}
 });
@@ -69,7 +69,7 @@ app.get("/activiteiten", async (req, res) => {
 		//console.log(activiteitenArray);
 		res.send(activiteitenArray);
 	} catch (error) {
-		console.error(error);
+		console.log(error);
 		res.status(500).json({ message: "Oeps, er ging iets mis" });
 	}
 });
