@@ -1,0 +1,35 @@
+[{
+  "_id": {
+    "$oid": "6943e922cb79b2886705e914"
+  },
+  "title": "echinacea",
+  "image": "/images/carrousel_watgroeiter/echinacea.jpg"
+},
+{
+  "_id": {
+    "$oid": "6943e92ccb79b2886705e916"
+  },
+  "title": "dahlia",
+  "image": "/images/carrousel_watgroeiter/dahlia.jpg"
+},
+{
+  "_id": {
+    "$oid": "6943e933cb79b2886705e918"
+  },
+  "title": "cosmea",
+  "image": "/images/carrousel_watgroeiter/cosmea.jpg"
+},
+{
+  "_id": {
+    "$oid": "6943e93acb79b2886705e91a"
+  },
+  "title": "frambozen",
+  "image": "/images/carrousel_watgroeiter/frambozen.jpg"
+},
+{
+  "_id": {
+    "$oid": "6943e941cb79b2886705e91c"
+  },
+  "title": "slangenkruid",
+  "image": "/images/carrousel_watgroeiter/slangenkruid.jpg"
+}]

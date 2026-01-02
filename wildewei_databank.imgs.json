@@ -1,0 +1,77 @@
+[{
+  "_id": {
+    "$oid": "694eba8ceabd51f074f33a8b"
+  },
+  "url": "/images/activiteiten/workshop_fermenteren.jpg",
+  "title": "workshop_fermenteren"
+},
+{
+  "_id": {
+    "$oid": "694ebaeaeabd51f074f33a93"
+  },
+  "url": "/images/activiteiten/workshop_droogbloemen.jpg",
+  "title": "workshop_droogbloemen"
+},
+{
+  "_id": {
+    "$oid": "694ebb41eabd51f074f33a9a"
+  },
+  "url": "/images/activiteiten/workshop_kombucha_maken.jpg",
+  "title": "workshop_kombucha"
+},
+{
+  "_id": {
+    "$oid": "694ebb62eabd51f074f33a9e"
+  },
+  "url": "/images/activiteiten/open_tuindag.jpg",
+  "title": "open_tuindag"
+},
+{
+  "_id": {
+    "$oid": "694ebbceeabd51f074f33aa4"
+  },
+  "url": "/images/activiteiten/workshop_bloemenkransen.jpg",
+  "title": "workshop_bloemenkransen"
+},
+{
+  "_id": {
+    "$oid": "694ebc37eabd51f074f33aac"
+  },
+  "url": "/images/activiteiten/open_tuindag2.jpg",
+  "title": "open_tuindag2"
+},
+{
+  "_id": {
+    "$oid": "694ebc5feabd51f074f33aae"
+  },
+  "url": "/images/activiteiten/ring_bloemen.jpg",
+  "title": "workshop_ring"
+},
+{
+  "_id": {
+    "$oid": "694ebc96eabd51f074f33ab0"
+  },
+  "url": "/images/activiteiten/workshop_bloemschikken.jpg",
+  "title": "workshop_bloemschikken"
+},
+{
+  "_id": {
+    "$oid": "694ebcb3eabd51f074f33ab2"
+  },
+  "url": "/images/activiteiten/workshop_bloemschikken2.jpg",
+  "title": "workshop_bloemschikken2"
+},
+{
+  "_id": {
+    "$oid": "694ebccaeabd51f074f33ab4"
+  },
+  "url": "/images/activiteiten/workshop_bloemschikken3.jpg",
+  "title": "workshop_bloemschikken3"
+},
+{
+  "_id": {
+    "$oid": "694ebcefeabd51f074f33ab6"
+  },
+  "url": "/images/activiteiten/workshop_tuinieren.jpg",
+  "title": "workshop_tuinieren"
+}]

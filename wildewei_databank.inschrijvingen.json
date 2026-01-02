@@ -1,0 +1,22 @@
+[{
+  "_id": {
+    "$oid": "6957d459a69b930ccb837bc9"
+  },
+  "idActiviteit": "694413fccb79b2886705e926",
+  "firstName": "test",
+  "lastName": "test",
+  "email": "",
+  "numberOfPeople": "",
+  "sentEmail": "Beste,\n        \n        Dank je voor je inschrijving voor de volgende activiteit: open tuindag.\n        We zien je graag op 2026-03-30T11:00:00.000Z om 2026-03-30T11:00:00.000Z.\n        \n        Gelieve binnen de tien werkdagen het bedrag van de inschrijving 0 over te schrijven op rekeningnummer BExx xxx xxx. Ter attentie van Wilde Wei, Gulle Gaard.\n        \n        Ik kijk er naar uit!\n        Met vriendelijke groet,\n        Katrien"
+},
+{
+  "_id": {
+    "$oid": "6957d45fa69b930ccb837bca"
+  },
+  "idActiviteit": "694413fccb79b2886705e926",
+  "firstName": "test",
+  "lastName": "test",
+  "email": "test@katrijn.be",
+  "numberOfPeople": "2",
+  "sentEmail": "Beste,\n        \n        Dank je voor je inschrijving voor de volgende activiteit: open tuindag.\n        We zien je graag op 2026-03-30T11:00:00.000Z om 2026-03-30T11:00:00.000Z.\n        \n        Gelieve binnen de tien werkdagen het bedrag van de inschrijving 0 over te schrijven op rekeningnummer BExx xxx xxx. Ter attentie van Wilde Wei, Gulle Gaard.\n        \n        Ik kijk er naar uit!\n        Met vriendelijke groet,\n        Katrien"
+}]

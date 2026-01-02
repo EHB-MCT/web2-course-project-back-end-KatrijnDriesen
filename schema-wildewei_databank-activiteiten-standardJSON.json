@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "_id",
+    "description",
+    "endDate",
+    "image",
+    "maxParticipants",
+    "price",
+    "registrations",
+    "startDate",
+    "title"
+  ],
+  "properties": {
+    "_id": {
+      "$ref": "#/$defs/ObjectId"
+    },
+    "description": {
+      "type": "string"
+    },
+    "endDate": {
+      "type": "string"
+    },
+    "image": {
+      "type": "string"
+    },
+    "maxParticipants": {
+      "type": "string"
+    },
+    "price": {
+      "type": "string"
+    },
+    "registrations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "inschrijvingId",
+          "registeredParticipants"
+        ],
+        "properties": {
+          "inschrijvingId": {
+            "$ref": "#/$defs/ObjectId"
+          },
+          "registeredParticipants": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "startDate": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    }
+  },
+  "$defs": {
+    "ObjectId": {
+      "type": "object",
+      "properties": {
+        "$oid": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        }
+      },
+      "required": [
+        "$oid"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,78 @@
+[{
+  "_id": {
+    "$oid": "694413fccb79b2886705e926"
+  },
+  "title": "open tuindag",
+  "image": "/images/activiteiten/open_tuindag.jpg",
+  "description": "Ontdek onze tuin tijdens de lente. We geven rondleidingen, vertellen hoe we onze tuin op een ecologische manier tuinieren. We bieden een hapje en drankje uit eigen tuin aan. Kom genieten en stel al je vragen.",
+  "endDate": "2026-03-30T16:00:00.000Z",
+  "startDate": "2026-03-30T11:00:00.000Z",
+  "maxParticipants": "30",
+  "price": "0",
+  "registrations": [
+    {
+      "registeredParticipants": "",
+      "inschrijvingId": {
+        "$oid": "6957d459a69b930ccb837bc9"
+      }
+    },
+    {
+      "registeredParticipants": "2",
+      "inschrijvingId": {
+        "$oid": "6957d45fa69b930ccb837bca"
+      }
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "69441456cb79b2886705e928"
+  },
+  "title": "workshop droogbloemen",
+  "image": "/images/activiteiten/workshop_droogbloemen.jpg",
+  "description": "Droogbloemen zijn helemaal hip! Ontdek hoe je bloemen op een goede manier kan drogen en bewaren zodat ze hun kleur en vorm behouden. Je leert verschillende droogtechnieken.",
+  "endDate": "2026-04-15T08:00:00.000Z",
+  "startDate": "2026-04-15T05:00:00.000Z",
+  "maxParticipants": "10",
+  "price": "25",
+  "registrations": []
+},
+{
+  "_id": {
+    "$oid": "6944148ccb79b2886705e92a"
+  },
+  "title": "workshop kombucha maken",
+  "image": "/images/activiteiten/workshop_kombucha_maken.jpg",
+  "description": "Leer zelf kombucha brouwen — een verfrissende, licht bruisende drank op basis van thee en fermentatie. We tonen stap voor stap hoe het proces werkt, hoe je een SCOBY onderhoudt en hoe je kunt variëren met smaken uit de tuin.",
+  "endDate": "2026-04-19T13:00:00.000Z",
+  "startDate": "2026-04-19T10:00:00.000Z",
+  "maxParticipants": "10",
+  "price": "35",
+  "registrations": []
+},
+{
+  "_id": {
+    "$oid": "694414c4cb79b2886705e92d"
+  },
+  "title": "workshop fermenteren",
+  "image": "/images/activiteiten/workshop_fermenteren.jpg",
+  "description": "Ontdek hoe je groenten kunt bewaren door fermentatie — een eenvoudige en natuurlijke manier om smaken te verdiepen en voeding langer te bewaren. We gaan aan de slag met seizoensgroenten uit de tuin en tonen hoe je zuurstofvrij werkt, bewaart en proeft wanneer het klaar is.",
+  "endDate": "2026-05-10T17:00:00.000Z",
+  "startDate": "2026-05-10T14:00:00.000Z",
+  "maxParticipants": "10",
+  "price": "35",
+  "registrations": []
+},
+{
+  "_id": {
+    "$oid": "694414fccb79b2886705e92f"
+  },
+  "title": "workshop bloemenkransen maken",
+  "image": "/images/activiteiten/workshop_bloemenkransen.jpg",
+  "description": "We tonen hoe je kleuren en vormen combineert, en hoe je een stevige, natuurlijke krans opbouwt.\nPerfect als cadeautje, tafelstuk of decoratie voor thuis.\nAlle materialen zijn voorzien, en we sluiten af met een drankje en iets lekkers uit de tuin.",
+  "endDate": "2026-05-30T13:00:00.000Z",
+  "startDate": "2026-05-30T10:00:00.000Z",
+  "maxParticipants": "10",
+  "price": "35",
+  "registrations": []
+}]
