@@ -1,4 +1,4 @@
-//example code was used for static files in Express https://expressjs.com/en/starter/static-files.html#serving-static-files-in-express
+//example code was used for static files in Express https://expressjs.com/en/starter/static-files.html#serving-static-files-in-express - https://expressjs.com/en/starter/static-files.html
 //app.use('/static', express.static('public'))
 
 //example code was used to create a Mongo ObjectId
@@ -14,6 +14,8 @@ import "dotenv/config";
 
 app.use(cors());
 app.use(express.json());
+
+//example code was used for static files in Express https://expressjs.com/en/starter/static-files.html#serving-static-files-in-express - https://expressjs.com/en/starter/static-files.html
 app.use("/images", express.static("images"));
 
 const port = process.env.PORT || 3000;
@@ -134,6 +136,8 @@ app.post("/login", async (req, res) => {
 	}
 });
 
+//example code was used to create a Mongo ObjectId
+//https://www.baeldung.com/mongo-generate-unique-objectid
 app.patch("/activiteiten/:id", async (req, res) => {
 	try {
 		//console.log(_id);
@@ -161,6 +165,8 @@ app.post("/activiteiten", async (req, res) => {
 	}
 });
 
+//example code was used to create a Mongo ObjectId
+//https://www.baeldung.com/mongo-generate-unique-objectid
 app.delete("/activiteiten/:id", async (req, res) => {
 	try {
 		const idUitReq = req.params.id;
